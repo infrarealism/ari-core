@@ -1,5 +1,5 @@
 import Foundation
 
-public struct Website: Identifiable {
+public struct Website: Codable, Identifiable {
     public let id = UUID()
 }
