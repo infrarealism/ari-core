@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Page: Codable, Identifiable, Hashable {
-    public var view = Group()
+    public var views = [View]()
     public let id = UUID()
     public let name = ""
     
