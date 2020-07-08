@@ -5,7 +5,7 @@ public enum Category: String, Codable {
     single,
     blog
     
-    func make(id: UUID) -> Website {
+    public func make(id: UUID) -> Website {
         .init(id: id, category: self)
     }
 }
