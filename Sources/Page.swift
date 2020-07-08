@@ -1,9 +1,10 @@
 import Foundation
 
 public struct Page: Codable, Identifiable, Hashable {
-    public var views = [View]()
     public let id = UUID()
+    public var date = Date()
     public let name = ""
+    public var content = ""
     
     public init() {
         
