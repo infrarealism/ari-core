@@ -1,13 +1,13 @@
 import Foundation
 
 public struct Page: Codable, Identifiable, Hashable {
-    public let id = UUID()
+    public var id: String
     public var date = Date()
-    public let name = ""
     public var content = ""
+    public let name = ""
     
-    public init() {
-        
+    public init(id: String) {
+        self.id = id
     }
     
     public func hash(into: inout Hasher) {
