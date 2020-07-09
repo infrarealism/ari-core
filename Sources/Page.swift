@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Page: Codable, Identifiable, Hashable {
+public struct Page: Codable, Identifiable, Hashable, Renderable {
     public var id: String
     public var title = ""
     public var description = ""
@@ -28,6 +28,7 @@ public struct Page: Codable, Identifiable, Hashable {
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
+    <link href="/style.css" rel="stylesheet">
     <title>\(title)</title>
 </head>
 <body>
@@ -36,6 +37,10 @@ public struct Page: Codable, Identifiable, Hashable {
 </html>
 
 """
+    }
+    
+    public var file: String {
+        id + ".html"
     }
     
     private var parsed: String {

@@ -1,8 +1,9 @@
 import Foundation
 
 public struct Website: Codable, Identifiable {
-    public var pages: Set<Page>
     public var name = ""
+    public var pages: Set<Page>
+    public var style = Style()
     public let id: UUID
     public let category: Category
     
