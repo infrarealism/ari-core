@@ -20,7 +20,7 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
         lhs.id == rhs.id
     }
     
-    public var render: String {
+    var render: String {
 """
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +39,7 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
 """
     }
     
-    public var file: String {
+    var file: String {
         id + ".html"
     }
     

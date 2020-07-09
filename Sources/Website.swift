@@ -12,4 +12,11 @@ public struct Website: Codable, Identifiable {
         self.category = category
         pages = [category.page]
     }
+    
+    public func render(_ url: URL) {
+        pages.forEach {
+            $0.render(url)
+        }
+        style.render(url)
+    }
 }

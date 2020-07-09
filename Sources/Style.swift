@@ -1,9 +1,9 @@
 import Foundation
 
 public struct Style: Codable, Renderable {
-    public let file: String = "style.css"
+    let file: String = "style.css"
     
-    public var render: String {
+    var render: String {
         """
 :root {
     --blue: #007bff;
