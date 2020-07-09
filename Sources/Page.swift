@@ -7,7 +7,6 @@ public struct Page: Codable, Identifiable, Hashable {
     public var keywords = ""
     public var author = ""
     public var content = ""
-    public var date = Date()
     
     public init(id: String) {
         self.id = id
@@ -32,10 +31,16 @@ public struct Page: Codable, Identifiable, Hashable {
     <title>\(title)</title>
 </head>
 <body>
-    \(content)
+\(parsed)
 </body>
 </html>
 
 """
+    }
+    
+    private var parsed: String {
+        content.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "\n").map {
+            "<p>\($0)</p>"
+        }.joined(separator: "\n")
     }
 }

@@ -9,6 +9,6 @@ public struct Website: Codable, Identifiable {
     init(id: UUID, category: Category) {
         self.id = id
         self.category = category
-        pages = [.init(id: "index")]
+        pages = [category.page]
     }
 }
