@@ -1,6 +1,6 @@
 import CoreGraphics
 
-public struct Color {
+public struct Color: Codable {
     let red: CGFloat
     let green: CGFloat
     let blue: CGFloat
