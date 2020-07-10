@@ -10,36 +10,72 @@ public struct Style: Codable, Renderable {
     var render: String {
         """
 *, :after, :before {
-    box-sizing:border-box
+        box-sizing:border-box
 }
 
 html {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color:transparent
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color:transparent
 }
         
 @media (prefers-color-scheme: light) {
-    body {
-        background-color: \(background.light.code);
-        color: \(text.light.code);
-    }
+        body {
+            background-color: \(background.light.code);
+            color: \(text.light.code);
+        }
 }
         
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: \(background.dark.code);
-        color: \(text.dark.code);
-    }
+        body {
+            background-color: \(background.dark.code);
+            color: \(text.dark.code);
+        }
 }
 
 body {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: left;
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+}
+
+h1, h2, h3 {
+        color: \(primary.code);
+        margin: 0 0 20px;
+        font-weight: 600;
+        line-height: 2;
+}
+
+p, ul, ol, table, pre, dl {
+        margin: 0 0 20px;
+}
+
+h1 {
+        font-size: 2rem;
+}
+
+h1 {
+        font-size: 3rem;
+}
+
+h2 {
+        font-size: 2rem;
+}
+        
+h3 {
+        font-size: 1.8rem;
+}
+
+a {
+        color: \(secondary.code);
+        text-decoration: none;
+}
+
+a:hover {
+        color: \(secondary.code);
 }
 
 """
