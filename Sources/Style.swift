@@ -20,15 +20,15 @@ html {
         
 @media (prefers-color-scheme: light) {
     body {
-        background-color: \(background.light);
-        color: \(text.light);
+        background-color: \(background.light.code);
+        color: \(text.light.code);
     }
 }
         
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: \(background.dark);
-        color: \(text.dark);
+        background-color: \(background.dark.code);
+        color: \(text.dark.code);
     }
 }
 

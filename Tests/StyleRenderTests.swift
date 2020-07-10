@@ -25,4 +25,21 @@ html {
 
 """))
     }
+    
+    func testColors() {
+        style.colors.forEach {
+            XCTAssertTrue($0.hasPrefix("#"))
+            XCTAssertTrue($0.hasSuffix(";"))
+            XCTAssertEqual(8, $0.count)
+        }
+    }
+}
+
+private extension Style {
+    var colors: [String] {
+        render.components(separatedBy: "\n").compactMap {
+            let a = $0.components(separatedBy: "color: ")
+            return a.count > 1 ? a[1] : nil
+        }
+    }
 }
