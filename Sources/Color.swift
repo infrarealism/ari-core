@@ -14,9 +14,9 @@ public struct Color: Codable, Equatable {
     public static let pink = Color(red: 1.0, green: 0.21568627450980393, blue: 0.37254901960784315)
     public static let orange = Color(red: 1.0, green: 0.6235294117647059, blue: 0.0392156862745098)
     
-    let red: CGFloat
-    let green: CGFloat
-    let blue: CGFloat
+    public let red: CGFloat
+    public let green: CGFloat
+    public let blue: CGFloat
     
     public init(red: CGFloat, green: CGFloat, blue: CGFloat) {
         self.red = red
