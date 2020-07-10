@@ -10,4 +10,16 @@ public struct Color {
         self.green = green
         self.blue = blue
     }
+    
+    var code: String {
+        "#" + red.hex + green.hex + blue.hex
+    }
+}
+
+private extension CGFloat {
+    var hex: String {
+        {
+            $0.count == 1 ? "0\($0)" : $0
+        } (.init(Int(self * 255), radix: 16))
+    }
 }

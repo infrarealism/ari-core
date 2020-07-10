@@ -2,8 +2,8 @@ import Foundation
 
 public struct Style: Codable, Renderable {
     public var link = Color
-    public var text = Color
-    public var background = Color
+    public let text = Color
+    public let background = Color(red: 0.11764705882352941, green: 0.11764705882352941, blue: 0.11764705882352941)
     let file: String = "style.css"
     
     var render: String {
