@@ -44,17 +44,12 @@ body {
 
 h1, h2, h3 {
         color: \(primary.code);
-        margin: 0 0 20px;
-        font-weight: 600;
+        font-weight: 700;
         line-height: 2;
 }
 
-p, ul, ol, table, pre, dl {
-        margin: 0 0 40px 0;
-}
-
-h1 {
-        font-size: 2rem;
+p, ul, ol, table, pre, dl, h1, h2, h3 {
+        margin: 0 0 20px 0;
 }
 
 h1 {
@@ -62,7 +57,7 @@ h1 {
 }
 
 h2 {
-        font-size: 2rem;
+        font-size: 2.2rem;
 }
         
 h3 {
