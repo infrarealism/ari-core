@@ -29,6 +29,6 @@ final class PageContentTests: XCTestCase {
 
 private extension Page {
     var body: String {
-        render.components(separatedBy: "<body>\n")[1].components(separatedBy: "\n</body>")[0]
+        render.components(separatedBy: "<section>\n")[1].components(separatedBy: "\n</section>")[0]
     }
 }

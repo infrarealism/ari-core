@@ -50,7 +50,9 @@ final class PageRenderTests: XCTestCase {
 
 </head>
 <body>
+<section>
 <p>Three piggies</p>
+</section>
 </body>
 
 """))

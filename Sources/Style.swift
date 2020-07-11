@@ -50,7 +50,7 @@ h1, h2, h3 {
 }
 
 p, ul, ol, table, pre, dl {
-        margin: 0 0 20px;
+        margin: 0 0 40px 0;
 }
 
 h1 {
@@ -76,6 +76,22 @@ a {
 
 a:hover {
         color: \(secondary.code);
+}
+        
+section {
+        width: 960px;
+        margin: 0 auto;
+}
+        
+@media print, screen and (max-width: 960px) {
+        body {
+          word-wrap: break-word;
+        }
+        
+        section {
+            width: auto;
+            margin: 0;
+        }
 }
 
 """

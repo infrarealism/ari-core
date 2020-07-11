@@ -32,7 +32,9 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     <title>\(title)</title>
 </head>
 <body>
+<section>
 \(parsed)
+</section>
 </body>
 </html>
 
