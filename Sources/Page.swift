@@ -47,7 +47,27 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     
     private var parsed: String {
         content.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "\n").map {
-            "<p>\($0)</p>"
+            $0.dropPrefix("#").flatMap {
+                $0.dropPrefix("#").flatMap {
+                    $0.dropPrefix("#").map {
+                        $0.space(tag: "h3")
+                    } ?? $0.space(tag: "h2")
+                } ?? $0.space(tag: "h1")
+            } ?? $0.tag("p")
         }.joined(separator: "\n")
+    }
+}
+
+private extension String {
+    func space(tag: String) -> String? {
+        dropPrefix(" ")?.tag(tag)
+    }
+    
+    func dropPrefix(_ item: String) -> String? {
+        hasPrefix(item) ? .init(dropFirst(item.count)) : nil
+    }
+    
+    func tag(_ item: String) -> String {
+        "<\(item)>\(self)</\(item)>"
     }
 }
