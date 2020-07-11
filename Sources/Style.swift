@@ -57,11 +57,7 @@ h1 {
 }
 
 h2 {
-        font-size: 2.2rem;
-}
-        
-h3 {
-        font-size: 1.8rem;
+        font-size: 2rem;
 }
 
 a {
