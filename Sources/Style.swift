@@ -45,11 +45,6 @@ body {
 h1, h2, h3 {
         color: \(primary.code);
         font-weight: 700;
-        line-height: 2;
-}
-
-p, ul, ol, table, pre, dl, h1, h2, h3 {
-        margin: 0 0 20px 0;
 }
 
 h1 {
@@ -71,7 +66,7 @@ a:hover {
         
 section {
         width: 960px;
-        margin: 50px auto;
+        margin: 20px auto;
 }
         
 @media print, screen and (max-width: 960px) {
@@ -81,7 +76,7 @@ section {
         
         section {
             width: auto;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 }
 
