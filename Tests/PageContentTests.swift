@@ -17,13 +17,19 @@ final class PageContentTests: XCTestCase {
     func testLineBreakWhiteSpace() {
         var page = Category.single.page
         page.content = "hello\nworld  \n"
-        XCTAssertEqual("<p>hello</p>\n<p>world</p>", page.body)
+        XCTAssertEqual("<p>hello</p>\n<p>world</p>\n<p>&nbsp;</p>", page.body)
     }
     
     func testMultipleLineBreaks() {
         var page = Category.single.page
         page.content = "hello\n\nworld"
-        XCTAssertEqual("<p>hello</p>\n<p></p>\n<p>world</p>", page.body)
+        XCTAssertEqual("<p>hello</p>\n<p>&nbsp;</p>\n<p>world</p>", page.body)
+    }
+    
+    func testEmptyLineBreaksSpaces() {
+        var page = Category.single.page
+        page.content = "  \n     \nhello"
+        XCTAssertEqual("<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>hello</p>", page.body)
     }
     
     func testH1() {

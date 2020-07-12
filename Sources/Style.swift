@@ -71,7 +71,7 @@ a:hover {
         
 section {
         width: 960px;
-        margin: 0 auto;
+        margin: 50px auto;
 }
         
 @media print, screen and (max-width: 960px) {
@@ -81,7 +81,7 @@ section {
         
         section {
             width: auto;
-            margin: 0;
+            margin: 20px 0;
         }
 }
 

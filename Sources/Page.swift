@@ -46,7 +46,7 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     }
     
     private var parsed: String {
-        content.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "\n").map {
+        content.components(separatedBy: "\n").map {
             $0.dropPrefix("#").flatMap {
                 $0.dropPrefix("#").flatMap {
                     $0.dropPrefix("#").map {
@@ -68,6 +68,12 @@ private extension String {
     }
     
     func tag(_ item: String) -> String {
-        "<\(item)>\(self)</\(item)>"
+        "<\(item)>\(content)</\(item)>"
+    }
+    
+    private var content: String {
+        {
+            $0.isEmpty ? "&nbsp;" : $0
+        } (trimmingCharacters(in: .whitespaces))
     }
 }
