@@ -36,6 +36,7 @@ html {
 
 body {
         margin: 0;
+        padding: 20px;
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.5;
@@ -66,7 +67,7 @@ a:hover {
         
 section {
         width: 960px;
-        margin: 20px auto;
+        margin: 0 auto;
 }
         
 @media print, screen and (max-width: 960px) {
@@ -76,7 +77,7 @@ section {
         
         section {
             width: auto;
-            margin: 10px 0;
+            margin: 0;
         }
 }
 
