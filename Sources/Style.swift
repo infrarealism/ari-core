@@ -72,12 +72,19 @@ section {
         
 @media print, screen and (max-width: 960px) {
         body {
-          word-wrap: break-word;
+            word-wrap: break-word;
         }
         
         section {
             width: auto;
             margin: 0;
+        }
+}
+        
+@media print {
+        body {
+            padding: 0.4in;
+            font-size: 12pt;
         }
 }
 
