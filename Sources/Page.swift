@@ -88,11 +88,11 @@ private extension String {
     
     private var link: String? {
         {
-            $0.count == 2 ? {
-                $0.count == 2 ? $0.last! : nil
-            } ($0.first!.components(separatedBy: "("))?.reduce(into: "<a href=\"\($0.last!)\">") {
-                $0 += $1 + "</a>"
-            } : nil
+            if let url = { $0.count == 2 ? $0.last : nil } ($0),
+                let title = { $0.count == 2 ? $0.last! : nil } ($0.first!.components(separatedBy: "[")) {
+                return "<a href=\"\(url)\">" + title + "</a>"
+            }
+            return nil
         } (components(separatedBy: "]("))
     }
 }
