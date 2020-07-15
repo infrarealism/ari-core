@@ -67,6 +67,18 @@ final class PageContentTests: XCTestCase {
         page.content = "###hello"
         XCTAssertEqual("<p>###hello</p>", page.body)
     }
+    
+    func testNotLink() {
+        var page = Category.single.page
+        page.content = "hello ](lorem ipsum)"
+        XCTAssertEqual("<p>hello ](lorem ipsum)</p>", page.body)
+    }
+    
+    func testLink() {
+        var page = Category.single.page
+        page.content = "[hello](lorem ipsum)"
+        XCTAssertEqual("<p><a href=\"lorem ipsum\">hello</a></p>", page.body)
+    }
 }
 
 private extension Page {

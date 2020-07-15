@@ -73,7 +73,26 @@ private extension String {
     
     private var content: String {
         {
-            $0.isEmpty ? "&nbsp;" : $0
+            $0.isEmpty ? "&nbsp;"
+                : $0.parsed
         } (trimmingCharacters(in: .whitespaces))
+    }
+    
+    private var parsed: String {
+        {
+            $0.count < 2 ? self : $0.reduce(into: "") {
+                $0 += $1.link ?? $1 + ($1.isEmpty ? "" : ")")
+            }
+        } (components(separatedBy: ")"))
+    }
+    
+    private var link: String? {
+        {
+            $0.count == 2 ? {
+                $0.count == 2 ? $0.last! : nil
+            } ($0.first!.components(separatedBy: "("))?.reduce(into: "<a href=\"\($0.last!)\">") {
+                $0 += $1 + "</a>"
+            } : nil
+        } (components(separatedBy: "]("))
     }
 }
