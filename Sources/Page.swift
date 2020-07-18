@@ -81,18 +81,34 @@ private extension String {
     private var parsed: String {
         {
             $0.count < 2 ? self : $0.reduce(into: "") {
-                $0 += $1.link ?? $1 + ($1.isEmpty ? "" : ")")
+                $0 += $1.item ?? $1 + ($1.isEmpty ? "" : ")")
             }
         } (components(separatedBy: ")"))
     }
     
-    private var link: String? {
+    private var item: String? {
         {
-            if let url = { $0.count == 2 ? $0.last : nil } ($0),
-                let title = { $0.count == 2 ? $0.last! : nil } ($0.first!.components(separatedBy: "[")) {
-                return "<a href=\"\(url)\">" + title + "</a>"
+            if let url = { $0.count == 2 ? $0.last?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) : nil } ($0) {
+                if let image = $0.first!.image {
+                    return "<img src=\"\(url)\" alt=\"\(image)\" />"
+                }
+                if let link = $0.first!.link {
+                    return "<a href=\"\(url)\">" + link + "</a>"
+                }
             }
             return nil
         } (components(separatedBy: "]("))
+    }
+    
+    private var image: String? {
+        {
+            $0.count == 2 ? $0.last! : nil
+        } (components(separatedBy: "!["))
+    }
+    
+    private var link: String? {
+        {
+            $0.count == 2 ? $0.last! : nil
+        } (components(separatedBy: "["))
     }
 }

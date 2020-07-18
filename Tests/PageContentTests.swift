@@ -76,8 +76,20 @@ final class PageContentTests: XCTestCase {
     
     func testLink() {
         var page = Category.single.page
+        page.content = "[hello](lorem)"
+        XCTAssertEqual("<p><a href=\"lorem\">hello</a></p>", page.body)
+    }
+    
+    func testLinkEscaped() {
+        var page = Category.single.page
         page.content = "[hello](lorem ipsum)"
-        XCTAssertEqual("<p><a href=\"lorem ipsum\">hello</a></p>", page.body)
+        XCTAssertEqual("<p><a href=\"lorem%20ipsum\">hello</a></p>", page.body)
+    }
+    
+    func testImage() {
+        var page = Category.single.page
+        page.content = "![hello world](some/lorem ipsum.png)"
+        XCTAssertEqual("<p><img src=\"some/lorem%20ipsum.png\" alt=\"hello world\" /></p>", page.body)
     }
 }
 
