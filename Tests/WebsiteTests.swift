@@ -6,7 +6,7 @@ final class WebsiteTests: XCTestCase {
     private var url: URL!
     
     override func setUp() {
-        website = Category.single.make(id: .init())
+        website = Category.single.make("hello")
         url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         try! FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
     }
