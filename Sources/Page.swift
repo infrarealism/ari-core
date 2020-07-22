@@ -8,7 +8,15 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     public var author = ""
     public var content = ""
     
-    public init(id: String) {
+    static var today: Page {
+        let formater = DateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        return .init(id: formater.string(from: .init()))
+    }
+    
+    static let index = Page(id: "index")
+    
+    private init(id: String) {
         self.id = id
     }
     

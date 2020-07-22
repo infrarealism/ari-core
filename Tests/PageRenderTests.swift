@@ -6,7 +6,7 @@ final class PageRenderTests: XCTestCase {
     private var render: String!
     
     override func setUp() {
-        page = .init(id: "")
+        page = .index
         page.title = "Hello World - Lorem Ipsum"
         page.content = "Three piggies"
         render = page.render
