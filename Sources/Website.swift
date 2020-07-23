@@ -53,6 +53,11 @@ public class Website {
         url?.stopAccessingSecurityScopedResource()
     }
     
+    public func update(_ page: Page) {
+        model.pages.remove(page)
+        model.pages.insert(page)
+    }
+    
     private func prepare() -> URL {
         try! open()
         save()
