@@ -8,7 +8,7 @@ final class WebsiteTests: XCTestCase {
     override func setUp() {
         url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         try! FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
-        website = .single("hello", directory: url)
+        website = .load(Website.single("hello", directory: url))
         try! website.open()
     }
     
@@ -26,5 +26,12 @@ final class WebsiteTests: XCTestCase {
     func testSave() {
         website.save()
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("hello.ari").path))
+    }
+    
+    func testFactory() {
+        let new = Website.single("ultravox", directory: url)
+        XCTAssertTrue(new.lastPathComponent.contains("ultravox"))
+        XCTAssertEqual("ari", new.pathExtension)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: new.path))
     }
 }

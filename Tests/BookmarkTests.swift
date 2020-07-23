@@ -8,7 +8,7 @@ final class BookmarkTests: XCTestCase {
     override func setUp() {
         url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         try! FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
-        website = .single("hello", directory: url)
+        website = .load(Website.single("hello", directory: url))
     }
     
     override func tearDown() {
@@ -35,6 +35,5 @@ final class BookmarkTests: XCTestCase {
     func testClose() {
         try! website.open()
         website.close()
-        XCTAssertNil(website.url)
     }
 }

@@ -45,9 +45,7 @@ final class CategoryTests: XCTestCase {
     }
     
     func testSingle() {
-        website = .single("aloha", directory: url)
-        try! website.open()
-        website.save()
+        _ = Website.single("aloha", directory: url)
         
         let loaded = Website.load(url.appendingPathComponent("aloha.ari"))
         XCTAssertTrue(loaded is Single)

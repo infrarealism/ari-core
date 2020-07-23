@@ -6,6 +6,7 @@ public class Website {
     public var model: Model
     public private(set) var url: URL?
     var category: Category { fatalError() }
+    private var file: URL { url!.appendingPathComponent(model.name).appendingPathExtension("ari") }
     
     public class func load(_ url: URL) -> Website? {
         guard
@@ -22,20 +23,16 @@ public class Website {
         }
     }
     
-    public class func single(_ name: String, directory: URL) -> Single {
-        .init(name, directory: directory)
+    public class func single(_ name: String, directory: URL) -> URL {
+        Single(.init(name: name, directory: directory.bookmark)).prepare()
     }
     
-    public class func blog(_ name: String, directory: URL) -> Blog {
-        .init(name, directory: directory)
+    public class func blog(_ name: String, directory: URL) -> URL {
+        Blog(.init(name: name, directory: directory.bookmark)).prepare()
     }
     
     fileprivate init(_ model: Model) {
         self.model = model
-    }
-    
-    fileprivate init(_ name: String, directory: URL) {
-        model = .init(name: name, directory: directory.bookmark)
     }
     
     public func open() throws {
@@ -47,7 +44,6 @@ public class Website {
     
     public func close() {
         url?.stopAccessingSecurityScopedResource()
-        url = nil
     }
     
     public func render() {
@@ -58,7 +54,14 @@ public class Website {
     }
     
     public func save() {
-        try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: url!.appendingPathComponent(model.name).appendingPathExtension("ari"))
+        try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: file)
+    }
+    
+    private func prepare() -> URL {
+        try! open()
+        save()
+        close()
+        return file
     }
     
     enum Error: Swift.Error {
