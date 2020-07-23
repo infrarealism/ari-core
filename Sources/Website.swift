@@ -7,7 +7,6 @@ public class Website {
         didSet {
             save()
             render()
-            print("here")
         }
     }
     
@@ -54,7 +53,8 @@ public class Website {
     }
     
     public func update(_ page: Page) {
-        model.pages.remove(page)
+        var pages = model.pages
+        pages.remove(page)
         model.pages.insert(page)
     }
     
