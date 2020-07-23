@@ -46,15 +46,12 @@ public class Website {
         url?.stopAccessingSecurityScopedResource()
     }
     
-    public func render() {
+    public func save() {
+        try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: file)
         model.pages.forEach {
             $0.render(url!)
         }
         model.style.render(url!)
-    }
-    
-    public func save() {
-        try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: file)
     }
     
     private func prepare() -> URL {

@@ -17,15 +17,11 @@ final class WebsiteTests: XCTestCase {
         website.close()
     }
     
-    func testRender() {
-        website.render()
-        XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("index.html").path))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("style.css").path))
-    }
-    
     func testSave() {
         website.save()
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("hello.ari").path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("index.html").path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("style.css").path))
     }
     
     func testFactory() {
