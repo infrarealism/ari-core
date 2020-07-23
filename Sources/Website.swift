@@ -55,7 +55,8 @@ public class Website {
     public func update(_ page: Page) {
         var pages = model.pages
         pages.remove(page)
-        model.pages.insert(page)
+        pages.insert(page)
+        model.pages = pages
     }
     
     private func prepare() -> URL {
