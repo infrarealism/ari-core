@@ -34,9 +34,7 @@ final class WebsiteTests: XCTestCase {
     
     func testUpdatePage() {
         try! FileManager.default.removeItem(at: url.appendingPathComponent("hello.ari"))
-        var page = website.model.pages.first!
-        page.content = "hello world"
-        website.update(page)
+        website.update(website.model.pages.first!.content("hello world"))
         XCTAssertEqual(1, website.model.pages.count)
         XCTAssertEqual("hello world", website.model.pages.first!.content)
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("hello.ari").path))

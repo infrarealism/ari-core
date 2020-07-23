@@ -6,7 +6,7 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     public var description = ""
     public var keywords = ""
     public var author = ""
-    public var content = ""
+    public internal(set) var content = ""
     
     static var today: Page {
         let formater = DateFormatter()
@@ -18,6 +18,12 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     
     private init(id: String) {
         self.id = id
+    }
+    
+    public func content(_ string: String) -> Self {
+        var page = self
+        page.content = string
+        return page
     }
     
     public func hash(into: inout Hasher) {
