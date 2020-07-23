@@ -7,7 +7,7 @@ public class Website {
     public private(set) var url: URL?
     var category: Category { fatalError() }
     
-    class func load(_ url: URL) -> Website? {
+    public class func load(_ url: URL) -> Website? {
         guard
             let data = try? Data(contentsOf: url).decompressed,
             data.prefix(header.count) == header,
@@ -22,11 +22,11 @@ public class Website {
         }
     }
     
-    class func single(_ name: String, directory: URL) -> Single {
+    public class func single(_ name: String, directory: URL) -> Single {
         .init(name, directory: directory)
     }
     
-    class func blog(_ name: String, directory: URL) -> Blog {
+    public class func blog(_ name: String, directory: URL) -> Blog {
         .init(name, directory: directory)
     }
     
@@ -45,7 +45,7 @@ public class Website {
         self.url = url
     }
     
-    func close() {
+    public func close() {
         url?.stopAccessingSecurityScopedResource()
         url = nil
     }

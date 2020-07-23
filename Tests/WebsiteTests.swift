@@ -1,5 +1,5 @@
 import XCTest
-@testable import Core
+import Core
 
 final class WebsiteTests: XCTestCase {
     private var website: Website!
