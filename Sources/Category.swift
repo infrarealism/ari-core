@@ -1,6 +1,6 @@
 import Foundation
 
-enum Category: UInt8 {
+public enum Category: UInt8 {
     case
     single,
     blog
