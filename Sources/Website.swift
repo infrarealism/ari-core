@@ -4,8 +4,8 @@ private let header = Data("ari.app.website".utf8)
 
 public class Website {
     public var model: Model
+    public private(set) var url: URL?
     var category: Category { fatalError() }
-    private(set) var url: URL?
     
     class func load(_ url: URL) -> Website? {
         guard
@@ -59,16 +59,6 @@ public class Website {
     
     public func save() {
         try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: url!.appendingPathComponent(model.name).appendingPathExtension("ari"))
-    }
-    
-    public var directory: String? {
-        url.map(\.path).flatMap { path in
-            getpwuid(getuid()).pointee.pw_dir.map {
-                FileManager.default.string(withFileSystemRepresentation: $0, length: .init(strlen($0)))
-            }.map {
-                NSString(string: path.replacingOccurrences(of: $0, with: "~")).abbreviatingWithTildeInPath
-            }
-        }
     }
     
     enum Error: Swift.Error {
