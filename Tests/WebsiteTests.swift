@@ -17,8 +17,9 @@ final class WebsiteTests: XCTestCase {
         website.close()
     }
     
-    func testSave() {
-        website.save()
+    func testSaveAndRender() {
+        try! FileManager.default.removeItem(at: url.appendingPathComponent("hello.ari"))
+        website.model.style.primary = .blue
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("hello.ari").path))
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("index.html").path))
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("style.css").path))

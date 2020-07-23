@@ -3,7 +3,14 @@ import Foundation
 private let header = Data("ari.app.website".utf8)
 
 public class Website {
-    public var model: Model
+    public var model: Model {
+        didSet {
+            save()
+            render()
+            print("here")
+        }
+    }
+    
     public private(set) var url: URL?
     var category: Category { fatalError() }
     private var file: URL { url!.appendingPathComponent(model.name).appendingPathExtension("ari") }
@@ -46,19 +53,22 @@ public class Website {
         url?.stopAccessingSecurityScopedResource()
     }
     
-    public func save() {
-        try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: file)
-        model.pages.forEach {
-            $0.render(url!)
-        }
-        model.style.render(url!)
-    }
-    
     private func prepare() -> URL {
         try! open()
         save()
         close()
         return file
+    }
+    
+    private func save() {
+        try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: file)
+    }
+    
+    private func render() {
+        model.pages.forEach {
+            $0.render(url!)
+        }
+        model.style.render(url!)
     }
     
     enum Error: Swift.Error {
