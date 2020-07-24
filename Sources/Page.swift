@@ -92,22 +92,49 @@ private extension String {
     }
     
     private func marked(_ i: Index? = nil, result: Self = "") -> Self {
-        { i in
+        i == endIndex ? result : { i in
             switch self[i] {
-            case "!":
-                
+//            case "!":
+//                return ""
             case "[":
-                return ""
+                if let container = Self(self[i ..< endIndex]).container {
+                    return container.ending == index(before: endIndex) ? result + container.title + container.content : ""
+                }
             default: break
             }
             
-            return {
-                i == index(before: endIndex)
-                    ? $0
-                    : marked(index(after: i), result: $0)
-            } (result + [self[i]])
+            return marked(index(after: i), result: result + [self[i]])
         } (i ?? startIndex)
     }
+    
+    
+    private var container: (title: String, content: String, ending: Index)? {
+        guard
+            let title = enclosed("[", "]"),
+            title.ending != endIndex && title.ending != index(before: endIndex),
+            let content = Self(self[index(after: title.ending) ..< endIndex]).enclosed("(", ")")
+        else { return nil }
+        return (title.content, content.content, content.ending)
+    }
+    
+    private func enclosed(_ open: Character, _ close: Character) -> (content: String, ending: Index)? {
+        guard self[startIndex] == open else { return nil }
+        var count = 1
+        var i = startIndex
+        while count > 0 && i != endIndex {
+            i = index(after: i)
+            switch self[i] {
+            case open: count += 1
+            case close: count -= 1
+            default: break
+            }
+        }
+        return count == 0 ? (.init(self[index(after: startIndex) ... index(before: i) ]), i) : nil
+    }
+    
+    
+    
+    
     
     
     
