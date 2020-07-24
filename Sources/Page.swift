@@ -87,10 +87,30 @@ private extension String {
     
     private var content: String {
         {
-            $0.isEmpty ? "&nbsp;"
-                : $0.parsed
+            $0.isEmpty ? "&nbsp;" : $0.marked()
         } (trimmingCharacters(in: .whitespaces))
     }
+    
+    private func marked(_ i: Index? = nil, result: Self = "") -> Self {
+        { i in
+            switch self[i] {
+            case "!":
+                
+            case "[":
+                return ""
+            default: break
+            }
+            
+            return {
+                i == index(before: endIndex)
+                    ? $0
+                    : marked(index(after: i), result: $0)
+            } (result + [self[i]])
+        } (i ?? startIndex)
+    }
+    
+    
+    
     
     private var parsed: String {
         {

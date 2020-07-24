@@ -91,6 +91,12 @@ final class PageContentTests: XCTestCase {
         page.content = "![hello world](some/lorem ipsum.png)"
         XCTAssertEqual("<p><img src=\"some/lorem%20ipsum.png\" alt=\"hello world\" /></p>", page.body)
     }
+    
+    func testImageLink() {
+        var page = Page.index
+        page.content = "[![hello world](some/lorem ipsum.png)](https://google.com)"
+        XCTAssertEqual("<p><a href=\"https://google.com\"><img src=\"some/lorem%20ipsum.png\" alt=\"hello world\" /></a></p>", page.body)
+    }
 }
 
 private extension Page {
