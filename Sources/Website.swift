@@ -1,6 +1,6 @@
 import Foundation
 
-private let header = Data("ari.app.website".utf8)
+private let header = Data("ari.website".utf8)
 
 public class Website {
     public var model: Model {
