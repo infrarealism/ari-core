@@ -19,29 +19,26 @@ extension String {
     
     private func marked(_ i: Index, result: Self) -> Self {
         guard i != endIndex else { return result }
-        var i = i
-                    var result = result
-                    switch self[i] {
-                    case "!":
-                        container(index(after: i)).map {
-                            i = $0.i
-                            result += "<img src=" + $0.content + " alt=" + $0.title + " />"
-                        }
-                    case "[":
-                        container(i).map {
-                            i = $0.i
-                            result += "<a href=" + $0.content + ">" + $0.title + "</a>"
-                        }
-                    default:
-                        result.append(self[i])
-                    }
-                    return marked(index(after: i), result: result)
+        switch self[i] {
+        case "!":
+            if i != index(before: endIndex), let contained = container(index(after: i)) {
+                return marked(index(after: contained.i), result: result + "<img src=\"" + contained.content + "\" alt=\"" + contained.title + "\" />")
+            }
+        case "[":
+            if let contained = container(i) {
+                return marked(index(after: contained.i), result: result + "<a href=\"" + contained.content + "\">" + (contained.title.isEmpty
+                    ? contained.content
+                    : contained.title.marked(contained.title.startIndex, result: "")) + "</a>")
+            }
+        default: break
+        }
+        return marked(index(after: i), result: result + [self[i]])
     }
     
     private func container(_ i: Index) -> (title: String, content: String, i: Index)? {
         guard
             let title = enclosed(i, "[", "]"),
-            title.i != endIndex && title.i != index(before: endIndex),
+            title.i != index(before: endIndex),
             let content = enclosed(index(after: title.i), "(", ")")
         else { return nil }
         return (title.value, content.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? content.value, content.i)
@@ -59,8 +56,6 @@ extension String {
             default: break
             }
         }
-        return count == 0 ? (.init(self[index(after: i) ... index(before: offset)]), offset) : nil
+        return count == 0 ? (index(after: i) == offset ? "" : .init(self[index(after: i) ... index(before: offset)]), offset) : nil
     }
-    
-    
 }

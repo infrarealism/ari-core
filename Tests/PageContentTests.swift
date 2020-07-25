@@ -68,6 +68,32 @@ final class PageContentTests: XCTestCase {
         XCTAssertEqual("<p>###hello</p>", page.body)
     }
     
+    func testNotItem() {
+        var page = Page.index
+        page.content = "["
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "]"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "[]"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "[ ]"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "[]("
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "[](hdasd"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "[](hdasd ()"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "!"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "!["
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "!]"
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+        page.content = "[!()]("
+        XCTAssertEqual("<p>" + page.content + "</p>", page.body)
+    }
+    
     func testNotLink() {
         var page = Page.index
         page.content = "hello ](lorem ipsum)"
@@ -78,6 +104,12 @@ final class PageContentTests: XCTestCase {
         var page = Page.index
         page.content = "[hello](lorem)"
         XCTAssertEqual("<p><a href=\"lorem\">hello</a></p>", page.body)
+    }
+    
+    func testEmptyLink() {
+        var page = Page.index
+        page.content = "[](https://www.google.com/q=hello world)"
+        XCTAssertEqual("<p><a href=\"https://www.google.com/q=hello%20world\">https://www.google.com/q=hello%20world</a></p>", page.body)
     }
     
     func testLinkEscaped() {
