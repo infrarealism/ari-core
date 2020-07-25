@@ -22,12 +22,15 @@ extension String {
         var i = i
                     var result = result
                     switch self[i] {
-        //            case "!":
-        //                return ""
+                    case "!":
+                        container(index(after: i)).map {
+                            i = $0.i
+                            result += "<img src=" + $0.content + " alt=" + $0.title + " />"
+                        }
                     case "[":
                         container(i).map {
                             i = $0.i
-                            result += "<a href=\"\($0.content.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)\">" + $0.title + "</a>"
+                            result += "<a href=" + $0.content + ">" + $0.title + "</a>"
                         }
                     default:
                         result.append(self[i])
@@ -41,10 +44,10 @@ extension String {
             title.i != endIndex && title.i != index(before: endIndex),
             let content = enclosed(index(after: title.i), "(", ")")
         else { return nil }
-        return (title.content, content.content, content.i)
+        return (title.value, content.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? content.value, content.i)
     }
     
-    private func enclosed(_ i: Index, _ open: Character, _ close: Character) -> (content: String, i: Index)? {
+    private func enclosed(_ i: Index, _ open: Character, _ close: Character) -> (value: String, i: Index)? {
         guard self[i] == open else { return nil }
         var count = 1
         var offset = i
@@ -60,43 +63,4 @@ extension String {
     }
     
     
-    
-    
-    
-    
-    
-    
-    private var parsed: String {
-        {
-            $0.count < 2 ? self : $0.reduce(into: "") {
-                $0 += $1.item ?? $1 + ($1.isEmpty ? "" : ")")
-            }
-        } (components(separatedBy: ")"))
-    }
-    
-    private var item: String? {
-        {
-            if let url = { $0.count == 2 ? $0.last?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) : nil } ($0) {
-                if let image = $0.first!.image {
-                    return "<img src=\"\(url)\" alt=\"\(image)\" />"
-                }
-                if let link = $0.first!.link {
-                    return "<a href=\"\(url)\">" + link + "</a>"
-                }
-            }
-            return nil
-        } (components(separatedBy: "]("))
-    }
-    
-    private var image: String? {
-        {
-            $0.count == 2 ? $0.last! : nil
-        } (components(separatedBy: "!["))
-    }
-    
-    private var link: String? {
-        {
-            $0.count == 2 ? $0.last! : nil
-        } (components(separatedBy: "["))
-    }
 }
