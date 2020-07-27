@@ -1,23 +1,19 @@
 import Foundation
 
 public struct Page: Codable, Identifiable, Hashable, Renderable {
+    public static let index = Page(id: "index")
+    
     public var id: String
     public var title = ""
     public var description = ""
     public var keywords = ""
     public var author = ""
     public internal(set) var content = ""
+    public let created: Date
     
-    static var today: Page {
-        let formater = DateFormatter()
-        formater.dateFormat = "yyyy-MM-dd"
-        return .init(id: formater.string(from: .init()))
-    }
-    
-    static let index = Page(id: "index")
-    
-    private init(id: String) {
+    init(id: String) {
         self.id = id
+        created = .init()
     }
     
     public func content(_ string: String) -> Self {
