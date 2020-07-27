@@ -48,7 +48,7 @@ final class CategoryTests: XCTestCase {
         _ = Website.single("aloha", directory: url)
         
         let loaded = Website.load(url.appendingPathComponent("aloha.ari"))
-        XCTAssertTrue(loaded is Single)
+        XCTAssertTrue(loaded is Website.Single)
         XCTAssertEqual("aloha", loaded?.model.name)
     }
 }
