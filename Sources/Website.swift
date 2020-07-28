@@ -3,20 +3,6 @@ import Foundation
 private let header = Data("ari.website".utf8)
 
 public class Website {
-    public final class Single: Website {
-        override var category: Category { .single }
-    }
-
-    public final class Blog: Website {
-        override var category: Category { .blog }
-        
-        public func add(id: String) {
-            let page = Page(id: id)
-            model.pages.remove(page)
-            model.pages.insert(page)
-        }
-    }
-    
     public var model: Model {
         didSet {
             save()
@@ -51,7 +37,7 @@ public class Website {
         Blog(.init(name: name, directory: directory.bookmark)).prepare()
     }
     
-    fileprivate init(_ model: Model) {
+    init(_ model: Model) {
         self.model = model
     }
     
