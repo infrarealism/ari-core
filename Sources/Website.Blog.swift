@@ -11,5 +11,9 @@ extension Website {
             model.pages.remove(page)
             model.pages.insert(page)
         }
+        
+        public func remove(_ page: Page) {
+            model.pages.remove(page)
+        }
     }
 }
