@@ -30,6 +30,10 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
         lhs.id == rhs.id
     }
     
+    public var file: String {
+        id + ".html"
+    }
+    
     var render: String {
 """
 <!DOCTYPE html>
@@ -52,10 +56,6 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
 </html>
 
 """
-    }
-    
-    var file: String {
-        id + ".html"
     }
     
     private var parsed: String {
