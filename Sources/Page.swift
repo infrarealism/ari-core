@@ -38,8 +38,11 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
-    <link href="style.css" rel="stylesheet">
+    <meta name="description" content="\(description)">
+    <meta name="keywords" content="\(keywords)">
+    <meta name="author" content="\(author)">
     <title>\(title)</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
 <section>
