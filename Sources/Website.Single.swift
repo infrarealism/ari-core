@@ -6,7 +6,7 @@ extension Website {
         
         override func render() {
             super.render()
-            model.pages.first!.render(url!)
+            render(model.pages.first!.render(sections: [model.pages.first!.content.parsed]), file: model.pages.first!.file)
         }
     }
 }

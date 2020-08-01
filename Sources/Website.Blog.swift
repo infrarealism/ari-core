@@ -19,11 +19,7 @@ extension Website {
         override func render() {
             super.render()
             model.pages.forEach {
-                if $0 == .index {
-                    $0.render(url!)
-                } else {
-                    $0.render(url!)
-                }
+                render($0.render(sections: [$0.content.parsed]), file: $0.file)
             }
         }
     }

@@ -1,8 +1,7 @@
 import Foundation
 
-public struct Page: Codable, Identifiable, Hashable, Renderable {
+public struct Page: Codable, Identifiable, Hashable {
     public static let index = Page(id: "index")
-    
     public var id: String
     public var title = ""
     public var description = ""
@@ -34,7 +33,7 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
         id + ".html"
     }
     
-    var render: String {
+    func render(sections: [String]) -> String {
 """
 <!DOCTYPE html>
 <html lang="en">
@@ -49,24 +48,17 @@ public struct Page: Codable, Identifiable, Hashable, Renderable {
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+\(sections.reduce(into: "") {
+    $0 +=
+"""
 <section>
-\(parsed)
+\($1)
 </section>
+"""
+})
 </body>
 </html>
 
 """
-    }
-    
-    private var parsed: String {
-        content.components(separatedBy: "\n").map {
-            $0.dropPrefix("#").flatMap {
-                $0.dropPrefix("#").flatMap {
-                    $0.dropPrefix("#").map {
-                        $0.space(tag: "h3")
-                    } ?? $0.space(tag: "h2")
-                } ?? $0.space(tag: "h1")
-            } ?? $0.tag("p")
-        }.joined(separator: "\n")
-    }
+        }
 }

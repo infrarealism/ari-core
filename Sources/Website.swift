@@ -14,7 +14,7 @@ public class Website {
     var category: Category { fatalError() }
     private var file: URL { url!.appendingPathComponent(model.name).appendingPathExtension("ari") }
     
-    public class func load(_ url: URL) -> Website? {
+    public final class func load(_ url: URL) -> Website? {
         guard
             let data = try? Data(contentsOf: url).decompressed,
             data.prefix(header.count) == header,
@@ -29,11 +29,11 @@ public class Website {
         }
     }
     
-    public class func single(_ name: String, directory: URL) -> URL {
+    public final class func single(_ name: String, directory: URL) -> URL {
         Single(.init(name: name, directory: directory.bookmark)).prepare()
     }
     
-    public class func blog(_ name: String, directory: URL) -> URL {
+    public final class func blog(_ name: String, directory: URL) -> URL {
         Blog(.init(name: name, directory: directory.bookmark)).prepare()
     }
     
@@ -41,18 +41,18 @@ public class Website {
         self.model = model
     }
     
-    public func open() throws {
+    public final func open() throws {
         guard let url = model.directory.access else {
             throw Error.access
         }
         self.url = url
     }
     
-    public func close() {
+    public final func close() {
         url?.stopAccessingSecurityScopedResource()
     }
     
-    public func update(_ page: Page) {
+    public final func update(_ page: Page) {
         var pages = model.pages
         pages.remove(page)
         pages.insert(page)
@@ -60,10 +60,14 @@ public class Website {
     }
     
     func render() {
-        model.style.render(url!)
+        render(model.style.render, file: "style.css")
     }
     
-    func render(_ page: Page, sections: [String]) {
+    final func render(_ content: String, file: String) {
+        try! Data(content.utf8).write(to: url!.appendingPathComponent(file))
+    }
+    
+    final func rasterize(_ page: Page, sections: [String]) -> String {
 """
 <!DOCTYPE html>
 <html lang="en">
@@ -79,11 +83,14 @@ public class Website {
 </head>
 <body>
 \(sections.reduce(into: "") {
-    $0 += $1
-})
+    $0 +=
+"""
 <section>
-\(parsed)
+\($1)
 </section>
+        
+"""
+})
 </body>
 </html>
 

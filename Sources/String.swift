@@ -1,15 +1,27 @@
 import Foundation
 
 extension String {
-    func space(tag: Self) -> Self? {
+    var parsed: String {
+        components(separatedBy: "\n").map {
+            $0.dropPrefix("#").flatMap {
+                $0.dropPrefix("#").flatMap {
+                    $0.dropPrefix("#").map {
+                        $0.space(tag: "h3")
+                    } ?? $0.space(tag: "h2")
+                } ?? $0.space(tag: "h1")
+            } ?? $0.tag("p")
+        }.joined(separator: "\n")
+    }
+    
+    private func space(tag: Self) -> Self? {
         dropPrefix(" ")?.tag(tag)
     }
     
-    func dropPrefix(_ item: Self) -> Self? {
+    private func dropPrefix(_ item: Self) -> Self? {
         hasPrefix(item) ? .init(dropFirst(item.count)) : nil
     }
     
-    func tag(_ item: Self) -> Self {
+    private func tag(_ item: Self) -> Self {
         "<\(item)>\(trimmingCharacters(in: .whitespaces).content)</\(item)>"
     }
     

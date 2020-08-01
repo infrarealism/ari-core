@@ -57,13 +57,14 @@ final class BlogTests: XCTestCase {
         blog.update(blog.model.pages.first { $0.id == "first" }!.content("hello world"))
         blog.update(blog.model.pages.first { $0.id == "second" }!.content("lorem ipsum"))
 
-        XCTAssertTrue(blog.model.pages.first { $0 == .index }!.render.contains("""
+        let index = try! String(decoding: Data(contentsOf: url.appendingPathComponent("index.html")), as: UTF8.self)
+        XCTAssertTrue(index.contains("""
 
 <p>welcome</p>
 
 """))
         
-        XCTAssertTrue(blog.model.pages.first { $0 == .index }!.render.contains("""
+        XCTAssertTrue(index.contains("""
 
 <ul>
 <li><a href="second.html">Second page</a></li>

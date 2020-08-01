@@ -11,8 +11,7 @@ final class PageRenderTests: XCTestCase {
         page.description = "lorem ipsum"
         page.keywords = "a, b, c"
         page.author = "Piggy @piggy"
-        page.content = "Three piggies"
-        render = page.render
+        render = page.render(sections: [])
     }
     
     func testWrappers() {
@@ -67,19 +66,6 @@ final class PageRenderTests: XCTestCase {
                 XCTAssertTrue(render.contains("""
 
     <meta name="author" content="Piggy @piggy">
-
-"""))
-    }
-    
-    func testContent() {
-        XCTAssertTrue(render.contains("""
-
-</head>
-<body>
-<section>
-<p>Three piggies</p>
-</section>
-</body>
 
 """))
     }
