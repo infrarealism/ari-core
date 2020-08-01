@@ -5,9 +5,7 @@ extension Website {
         override var category: Category { .blog }
         
         public func add(id: String) {
-            var page = Page(id: id
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-                .replacingOccurrences(of: " ", with: "-"))
+            var page = Page(id: id.cleaned)
             page.title = id
             model.pages.remove(page)
             model.pages.insert(page)
@@ -15,6 +13,10 @@ extension Website {
         
         public func remove(_ page: Page) {
             model.pages.remove(page)
+        }
+        
+        public func contains(id: String) -> Bool {
+            model.pages.contains { $0.id == id.cleaned }
         }
         
         override func render() {
@@ -47,5 +49,13 @@ extension Website {
 </ul>
 """
         }
+    }
+}
+
+private extension String {
+    var cleaned: Self {
+        trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "-")
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
 }
