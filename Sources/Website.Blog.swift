@@ -5,10 +5,12 @@ extension Website {
         override var category: Category { .blog }
         
         public func add(id: String) {
+            var pages = model.pages
             var page = Page(id: id.cleaned)
             page.title = id
-            model.pages.remove(page)
-            model.pages.insert(page)
+            pages.remove(page)
+            pages.insert(page)
+            model.pages = pages
         }
         
         public func remove(_ page: Page) {
