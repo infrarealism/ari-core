@@ -34,6 +34,11 @@ final class BlogTests: XCTestCase {
         XCTAssertEqual("hello-world", blog.model.pages.sorted { $0.created > $1.created }.first!.id)
     }
     
+    func testTitle() {
+        blog.add(id: "hello world")
+        XCTAssertEqual("hello world", blog.model.pages.sorted { $0.created > $1.created }.first!.title)
+    }
+    
     func testRemove() {
         blog.add(id: "hello")
         blog.remove(blog.model.pages.filter { $0 != .index }.first!)

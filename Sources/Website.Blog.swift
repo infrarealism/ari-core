@@ -5,9 +5,10 @@ extension Website {
         override var category: Category { .blog }
         
         public func add(id: String) {
-            let page = Page(id: id
+            var page = Page(id: id
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .replacingOccurrences(of: " ", with: "-"))
+            page.title = id
             model.pages.remove(page)
             model.pages.insert(page)
         }
