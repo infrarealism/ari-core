@@ -1,5 +1,5 @@
 import XCTest
-import Core
+@testable import Core
 
 final class BlogTests: XCTestCase {
     private var blog: Website.Blog!
@@ -39,5 +39,25 @@ final class BlogTests: XCTestCase {
         blog.remove(blog.model.pages.filter { $0 != .index }.first!)
         XCTAssertEqual(1, blog.model.pages.count)
         XCTAssertTrue(blog.model.pages.contains(.index))
+    }
+    
+    func testRender() {
+        blog.add(id: "first")
+        blog.add(id: "second")
+        blog.update(blog.model.pages.first { $0 == .index }!.content("welcome"))
+        blog.update(blog.model.pages.first { $0.id == "first" }!.content("hello world"))
+        blog.update(blog.model.pages.first { $0.id == "second" }!.content("lorem ipsum"))
+
+        XCTAssertTrue(blog.model.pages.first { $0 == .index }!.render.contains("""
+
+<p>welcome</p>
+
+"""))
+        
+        XCTAssertTrue(blog.model.pages.first { $0 == .index }!.render.contains("""
+
+<p>welcome</p>
+
+"""))
     }
 }
