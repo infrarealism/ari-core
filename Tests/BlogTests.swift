@@ -44,6 +44,15 @@ final class BlogTests: XCTestCase {
     func testRender() {
         blog.add(id: "first")
         blog.add(id: "second")
+        
+        var first = blog.model.pages.first { $0.id == "first" }!
+        first.title = "First page"
+        blog.update(first)
+        
+        var second = blog.model.pages.first { $0.id == "second" }!
+        second.title = "Second page"
+        blog.update(second)
+        
         blog.update(blog.model.pages.first { $0 == .index }!.content("welcome"))
         blog.update(blog.model.pages.first { $0.id == "first" }!.content("hello world"))
         blog.update(blog.model.pages.first { $0.id == "second" }!.content("lorem ipsum"))
@@ -56,7 +65,10 @@ final class BlogTests: XCTestCase {
         
         XCTAssertTrue(blog.model.pages.first { $0 == .index }!.render.contains("""
 
-<p>welcome</p>
+<ul>
+<li><a href="second.html">Second page</a></li>
+<li><a href="first.html">First page</a></li>
+</ul>
 
 """))
     }

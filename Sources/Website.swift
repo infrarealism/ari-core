@@ -59,6 +59,37 @@ public class Website {
         model.pages = pages
     }
     
+    func render() {
+        model.style.render(url!)
+    }
+    
+    func render(_ page: Page, sections: [String]) {
+"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
+    <meta name="description" content="\(page.description)">
+    <meta name="keywords" content="\(page.keywords)">
+    <meta name="author" content="\(page.author)">
+    <title>\(page.title)</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+\(sections.reduce(into: "") {
+    $0 += $1
+})
+<section>
+\(parsed)
+</section>
+</body>
+</html>
+
+"""
+    }
+    
     private func prepare() -> URL {
         try! open()
         save()
@@ -68,16 +99,5 @@ public class Website {
     
     private func save() {
         try! (header + [category.rawValue] + JSONEncoder().encode(model)).compress(to: file)
-    }
-    
-    private func render() {
-        model.pages.forEach {
-            $0.render(url!)
-        }
-        model.style.render(url!)
-    }
-    
-    enum Error: Swift.Error {
-        case access
     }
 }

@@ -15,5 +15,16 @@ extension Website {
         public func remove(_ page: Page) {
             model.pages.remove(page)
         }
+        
+        override func render() {
+            super.render()
+            model.pages.forEach {
+                if $0 == .index {
+                    $0.render(url!)
+                } else {
+                    $0.render(url!)
+                }
+            }
+        }
     }
 }
