@@ -48,14 +48,18 @@ public struct Page: Codable, Identifiable, Hashable {
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-\(sections.reduce(into: "") {
+
+""" +
+sections.reduce(into: "") {
     $0 +=
 """
 <section>
 \($1)
 </section>
+
 """
-})
+} +
+"""
 </body>
 </html>
 

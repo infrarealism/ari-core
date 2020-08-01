@@ -45,13 +45,17 @@ final class BlogTests: XCTestCase {
         blog.add(id: "first")
         blog.add(id: "second")
         
-        var first = blog.model.pages.first { $0.id == "first" }!
-        first.title = "First page"
-        blog.update(first)
+        var _index = blog.model.pages.first { $0 == .index }!
+        _index.title = "Start here"
+        blog.update(_index)
         
-        var second = blog.model.pages.first { $0.id == "second" }!
-        second.title = "Second page"
-        blog.update(second)
+        var _first = blog.model.pages.first { $0.id == "first" }!
+        _first.title = "First page"
+        blog.update(_first)
+        
+        var _second = blog.model.pages.first { $0.id == "second" }!
+        _second.title = "Second page"
+        blog.update(_second)
         
         blog.update(blog.model.pages.first { $0 == .index }!.content("welcome"))
         blog.update(blog.model.pages.first { $0.id == "first" }!.content("hello world"))
@@ -63,13 +67,34 @@ final class BlogTests: XCTestCase {
 <p>welcome</p>
 
 """))
-        
         XCTAssertTrue(index.contains("""
 
 <ul>
 <li><a href="second.html">Second page</a></li>
 <li><a href="first.html">First page</a></li>
 </ul>
+
+"""))
+        
+        let item = try! String(decoding: Data(contentsOf: url.appendingPathComponent("first.html")), as: UTF8.self)
+        XCTAssertTrue(item.contains("""
+
+<p>hello world</p>
+
+"""))
+        XCTAssertTrue(item.contains("""
+
+<p><a href="index.html">Start here</a></p>
+
+"""))
+    }
+    
+    func testNoTitleForIndex() {
+        blog.add(id: "first")
+        let item = try! String(decoding: Data(contentsOf: url.appendingPathComponent("first.html")), as: UTF8.self)
+        XCTAssertTrue(item.contains("""
+
+<p><a href="index.html">Home</a></p>
 
 """))
     }
