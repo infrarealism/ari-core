@@ -1,9 +1,16 @@
 import Foundation
 
 public extension URL {
+#if os(macOS)
     var bookmark: Data {
         try! bookmarkData(options: .withSecurityScope)
     }
+#endif
+#if os(iOS)
+    var bookmark: Data {
+        try! bookmarkData()
+    }
+#endif
     
     var directory: String? {
         getpwuid(getuid()).pointee.pw_dir.map {
