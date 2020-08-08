@@ -8,7 +8,7 @@ public extension URL {
 #endif
 #if os(iOS)
     var bookmark: Data {
-        try! bookmarkData()
+        try! bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil)
     }
 #endif
     

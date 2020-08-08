@@ -12,7 +12,7 @@ public extension Data {
 #if os(iOS)
     var access: URL? {
         var stale = false
-        return (try? URL(resolvingBookmarkData: self, options: [], relativeTo: nil, bookmarkDataIsStale: &stale)).flatMap {
+        return (try? URL(resolvingBookmarkData: self, bookmarkDataIsStale: &stale)).flatMap {
             $0.startAccessingSecurityScopedResource() ? $0 : nil
         }
     }
