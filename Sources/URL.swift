@@ -8,7 +8,10 @@ public extension URL {
 #endif
 #if os(iOS)
     var bookmark: Data {
-        try! bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil)
+        _ = startAccessingSecurityScopedResource()
+        let data = try! bookmarkData()
+        stopAccessingSecurityScopedResource()
+        return data
     }
 #endif
     
