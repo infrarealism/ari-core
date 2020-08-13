@@ -38,7 +38,7 @@ body {
         padding: 20px;
         font-size: 1rem;
         font-weight: 400;
-        line-height: 1.3;
+        line-height: 1.4;
         text-align: left;
 }
 
