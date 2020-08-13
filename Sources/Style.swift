@@ -38,7 +38,7 @@ body {
         padding: 20px;
         font-size: 1rem;
         font-weight: 400;
-        line-height: 1.1;
+        line-height: 1.2;
         text-align: left;
 }
 
@@ -49,12 +49,10 @@ h1, h2, h3 {
 
 h1 {
         font-size: 3rem;
-        line-height: 1;
 }
 
 h2 {
         font-size: 2rem;
-        line-height: 1;
 }
 
 a {
@@ -64,6 +62,10 @@ a {
 
 a:hover {
         color: \(secondary.code);
+}
+        
+p {
+        margin: 1em 0;
 }
         
 section {
