@@ -38,13 +38,15 @@ body {
         padding: 20px;
         font-size: 1rem;
         font-weight: 400;
-        line-height: 1.2;
+        line-height: 1.3;
         text-align: left;
 }
 
 h1, h2, h3 {
         color: \(primary.code);
         font-weight: 700;
+        line-height: 1;
+        margin: 0;
 }
 
 h1 {
@@ -65,7 +67,7 @@ a:hover {
 }
         
 p {
-        margin: 1em 0;
+        margin: 0;
 }
         
 section {
