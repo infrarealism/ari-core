@@ -16,7 +16,7 @@ html {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         line-height: 1.15;
         -webkit-text-size-adjust: 100%;
-        -webkit-tap-highlight-color:transparent
+        -webkit-tap-highlight-color:transparent;
 }
         
 @media (prefers-color-scheme: light) {
@@ -38,7 +38,7 @@ body {
         padding: 20px;
         font-size: 1rem;
         font-weight: 400;
-        line-height: 1.2;
+        line-height: 1.1;
         text-align: left;
 }
 
@@ -49,12 +49,12 @@ h1, h2, h3 {
 
 h1 {
         font-size: 3rem;
-        line-height: 1.1;
+        line-height: 1;
 }
 
 h2 {
         font-size: 2rem;
-        line-height: 1.1;
+        line-height: 1;
 }
 
 a {
