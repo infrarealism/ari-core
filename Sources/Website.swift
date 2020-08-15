@@ -10,9 +10,9 @@ public class Website {
         }
     }
     
+    public var file: URL { url!.appendingPathComponent(model.name).appendingPathExtension("ari") }
     public private(set) var url: URL?
     var category: Category { fatalError() }
-    private var file: URL { url!.appendingPathComponent(model.name).appendingPathExtension("ari") }
     
     public final class func load(_ url: URL) -> Website? {
         guard
