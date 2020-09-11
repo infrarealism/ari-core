@@ -46,5 +46,6 @@ final class WebsiteTests: XCTestCase {
         website.update(other)
         XCTAssertEqual(other.bookmark, website.model.directory)
         XCTAssertNotNil(website.model.directory.access)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: other.appendingPathComponent("hello.ari").path))
     }
 }

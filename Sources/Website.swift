@@ -60,7 +60,9 @@ public class Website {
     }
     
     public final func update(_ url: URL) {
-        model.directory = url.bookmark
+        let bookmark = url.bookmark
+        self.url = bookmark.access
+        model.directory = bookmark
     }
     
     func render() {
