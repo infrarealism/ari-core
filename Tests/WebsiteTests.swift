@@ -1,5 +1,5 @@
 import XCTest
-import Core
+@testable import Core
 
 final class WebsiteTests: XCTestCase {
     private var website: Website!
@@ -38,5 +38,13 @@ final class WebsiteTests: XCTestCase {
         XCTAssertEqual(1, website.model.pages.count)
         XCTAssertEqual("hello world", website.model.pages.first!.content)
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathComponent("hello.ari").path))
+    }
+    
+    func testUpdateURL() {
+        let other = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        try! FileManager.default.createDirectory(at: other, withIntermediateDirectories: true)
+        website.update(other)
+        XCTAssertEqual(other.bookmark, website.model.directory)
+        XCTAssertNotNil(website.model.directory.access)
     }
 }

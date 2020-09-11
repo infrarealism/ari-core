@@ -59,6 +59,10 @@ public class Website {
         model.pages = pages
     }
     
+    public final func update(_ url: URL) {
+        model.directory = url.bookmark
+    }
+    
     func render() {
         render(model.style.render, file: "style.css")
     }
