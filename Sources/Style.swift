@@ -3,8 +3,8 @@ import Foundation
 public struct Style: Codable {
     public var primary = Color.blue
     public var secondary = Color.pink
-    public let text = Color.Dynamic(dark: .init(red: 1, green: 1, blue: 1), light: .init(red: 0, green: 0, blue: 0))
-    public let background = Color.Dynamic(dark: .init(red: 0.196, green: 0.196, blue: 0.196), light: .init(red: 0.9254, green: 0.9254, blue: 0.9254))
+    public private(set) var text = Color.Dynamic(dark: .init(red: 1, green: 1, blue: 1), light: .init(red: 0, green: 0, blue: 0))
+    public private(set) var background = Color.Dynamic(dark: .init(red: 0.196, green: 0.196, blue: 0.196), light: .init(red: 0.9254, green: 0.9254, blue: 0.9254))
     
     var render: String {
         """
